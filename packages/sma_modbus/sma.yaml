@@ -1,1 +1,191 @@
 
+modbus:
+  type: tcp
+  host: 192.168.1.253
+  port: 502
+      
+sensor:
+  - platform: modbus
+    scan_interval: 900
+    registers:
+    - name: SMA_Power_AC
+      unit_of_measurement: W
+      slave: 3
+      register: 30775
+      count: 2
+      data_type: int
+    - name: PV Daily Yield
+      unit_of_measurement: kWh
+      slave: 3
+      register: 30517
+      scale: 0.001
+      precision: 3
+      count: 4
+      data_type: uint
+    - name: PV Total Production
+      unit_of_measurement: MWh
+      slave: 3
+      register: 30513
+      scale: 0.000001
+      precision: 3
+      count: 4
+    - name: Grid Voltage
+      unit_of_measurement: V
+      slave: 3 
+      register: 30783
+      count: 2
+      scale: 0.01
+      precision: 2
+      data_type: uint
+    - name: Grid frequency
+      unit_of_measurement: Hz
+      slave: 3 
+      register: 30803
+      count: 2
+      scale: 0.01
+      precision: 2
+      data_type: uint
+    - name: SMA_temp
+      unit_of_measurement: °C
+      slave: 3
+      register: 30953
+      count: 2
+      scale: 0.1
+      precision: 1
+      data_type: int
+    - name: SMA_status
+      slave: 3
+      register: 30201
+      count: 2
+    - name: SMA_grid
+      slave: 3
+      register: 30217
+      count: 2
+    - name: Insulation
+      slave: 3
+      register: 30225
+      count: 2
+      scale: 0.001
+      unit_of_measurement: kOhms
+    - name: SMA_Residual_current
+      slave: 3
+      register: 31247
+      count: 2
+      scale: 1
+      unit_of_measurement: mA
+    - name: Apparent Power
+      unit_of_measurement: VA
+      slave: 3
+      register: 30813
+      scale: 1
+      precision: 0
+      count: 2
+      data_type: int
+    - name: Reactive Power
+      unit_of_measurement: VAr
+      slave: 3
+      register: 30805
+      scale: 1
+      precision: 0
+      count: 2
+      data_type: int
+      
+  - platform: template
+    sensors:
+      modbus_sma_pv_power:
+        entity_id: sensor.sma_power_ac
+        friendly_name: 'Power Output'
+        value_template: >-
+            {% if states('sensor.sma_power_ac')|float < 0 or states('sensor.sma_power_ac')|float > 10000 %}
+              0
+            {% else %}
+              {{ states('sensor.sma_power_ac') }}
+            {% endif %}
+        unit_of_measurement: "W"
+        icon_template: mdi:flash-circle
+      modbus_sma_pv_apparent_power:
+        entity_id: sensor.apparent_power
+        friendly_name: 'Apparent Power'
+        value_template: >-
+            {% if states('sensor.apparent_power')|float < 0 or states('sensor.apparent_power')|float > 10000 %}
+              0
+            {% else %}
+              {{ states('sensor.apparent_power') }}
+            {% endif %}
+        unit_of_measurement: "VA"
+        icon_template: mdi:flash-circle
+      modbus_sma_pv_reactive_power:
+        entity_id: sensor.reactive_power
+        friendly_name: 'Reactive Power'
+        value_template: >-
+            {% if states('sensor.reactive_power')|float < 0 or states('sensor.reactive_power')|float > 10000 %}
+              0
+            {% else %}
+              {{ states('sensor.reactive_power') }}
+            {% endif %}
+        unit_of_measurement: "VAr"
+        icon_template: mdi:flash-circle
+      modbus_sma_pv_residual:
+        entity_id: sensor.sma_residual_current
+        friendly_name: 'Residual Current'
+        value_template: >-
+            {% if states('sensor.sma_residual_current')|float < 0 or states('sensor.sma_residual_current')|float > 10000 %}
+              0
+            {% else %}
+              {{ states('sensor.sma_residual_current') }}
+            {% endif %}
+        unit_of_measurement: "mA"
+        icon_template: mdi:flash-circle
+      modbus_sma_temperature:
+        entity_id: sensor.sma_temp
+        friendly_name: 'Inverter Temp'
+        value_template: >-
+            {% if states('sensor.sma_temp')|float < 0 or states('sensor.sma_temp')|float > 100 %}
+              0
+            {% else %}
+              {{ states('sensor.sma_temp') }}
+            {% endif %}
+        unit_of_measurement: "°C"
+      modbus_grid_frequency:
+        entity_id: sensor.grid_frequency
+        friendly_name: 'Grid Frequency'
+        value_template: >-
+            {% if states('sensor.grid_frequency')|float < 30 or states('sensor.grid_frequency')|float > 100 %}
+              Not Measured
+            {% else %}
+              {{ states('sensor.grid_frequency') }}
+            {% endif %}
+        unit_of_measurement: "Hz"
+      modbus_grid_voltage:
+        entity_id: sensor.grid_voltage
+        friendly_name: 'Grid Voltage'
+        value_template: >-
+            {% if states('sensor.grid_voltage')|float < 180 or states('sensor.grid_voltage')|float > 300 %}
+              Not Measured
+            {% else %}
+              {{ states('sensor.grid_voltage') }}
+            {% endif %}
+        unit_of_measurement: "V"
+      modbus_inverter_status:
+        entity_id: sensor.sma_status
+        friendly_name: 'Inverter Status'
+        value_template: >-
+            {% if is_state('sensor.sma_status', '307' ) %}
+              OK
+            {% elif is_state('sensor.sma_status', '303' ) %}
+              Off
+            {% elif is_state('sensor.sma_status', '455' ) %}
+              Warning
+            {% elif is_state('sensor.sma_status', '35' ) %}
+              Fault
+            {% endif %}
+      modbus_grid_contactor:
+        entity_id: sensor.sma_grid
+        friendly_name: 'Grid contactor'
+        value_template: >-
+            {% if is_state('sensor.sma_grid', '51' ) %}
+              Closed
+            {% else %}
+              Open
+            {% endif %}
+            
