@@ -36,3 +36,8 @@ input_select:
       - Kitchen
       - Living room
       - Everywhere
+      
+homeassistant:
+  customize:      
+    automation.radio:
+      icon: mdi:radio      
