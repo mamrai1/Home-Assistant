@@ -188,4 +188,12 @@ sensor:
             {% else %}
               Open
             {% endif %}
+homeassistant:
+  customize:
+    sensor.pv_daily_yield:
+      icon: mdi:solar-power
+    sensor.modbus_grid_contactor:
+      icon: mdi:transmission-tower
+    sensor.pv_total_production:
+      icon: mdi:solar-power         
             
