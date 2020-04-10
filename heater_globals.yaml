@@ -1,0 +1,135 @@
+timer:
+  boost:
+    name: Boost CountDown
+
+input_boolean:
+  boost:
+    name: Boost Start
+    icon: mdi:power
+    initial: off
+  heater_timer1:
+    name: Heater timer 1
+    icon: mdi:clock-outline
+  heater_timer2:
+    name: Heater timer 2
+    icon: mdi:clock-outline
+  heater_notify:
+    name: Heater notify
+    icon: mdi:comment-text
+  heater_timer1_running:
+  heater_timer2_running:
+  
+  heater2_weekdays:
+    name: Weekday mode
+    icon: mdi:checkbox-marked-outline
+  heater2_monday:
+    name: Mon
+  heater2_tuesday:
+   name: Tue
+  heater2_wednesday:
+    name: Wed
+  heater2_thursday:
+    name: Thu
+  heater2_friday:
+    name: Fri
+  heater2_saturday:
+    name: Sat
+  heater2_sunday:
+    name: Sun
+  heater2_deselect_all_days:
+    name: Clear
+  heater2_select_all_days:
+    name: All
+
+  heater1_weekdays:
+    name: Weekday mode
+    icon: mdi:checkbox-marked-outline
+  heater1_monday:
+    name: Mon
+  heater1_tuesday:
+   name: Tue
+  heater1_wednesday:
+    name: Wed
+  heater1_thursday:
+    name: Thu
+  heater1_friday:
+    name: Fri
+  heater1_saturday:
+    name: Sat
+  heater1_sunday:
+    name: Sun
+  heater1_deselect_all_days:
+    name: Clear
+  heater1_select_all_days:
+    name: All
+input_select:
+  boost:
+    name: Boost with
+    options:
+      - Electric Heater
+      - Central Heating
+      - Performance
+      
+input_number:
+  heater_temperature:
+    name: Max Temp
+    min: 45
+    max: 70
+    step: 5
+    unit_of_measurement: '°C'    
+    icon: mdi:thermometer
+  heater_boost:
+    name: Minutes
+    min: 15
+    max: 90
+    step: 15
+    unit_of_measurement: 'm'
+    icon: mdi:clock-start
+  heater_boost_schedule1:
+    name: Minutes
+    min: 15
+    max: 90
+    step: 15
+    unit_of_measurement: 'm'
+    icon: mdi:clock-start
+  heater_boost_schedule2:
+    name: Minutes
+    min: 15
+    max: 90
+    step: 15
+    unit_of_measurement: 'm'
+    icon: mdi:clock-start    
+
+sensor:
+  - platform: template
+    sensors:
+      time_to_temp:
+        friendly_name: "Time to temp"
+        unit_of_measurement: 'minutes'
+        icon_template: mdi:clock-start
+        value_template: >-
+            {% if is_state('input_select.boost', 'Performance' ) %}
+              {{(((states('input_number.heater_temperature')|float-states('sensor.pressureswitch_ds18b20_temperature')| float)*4.2*180)/60/6)| round (0) }}
+            {% else %}
+              {{(((states('input_number.heater_temperature')|float-states('sensor.pressureswitch_ds18b20_temperature')| float)*4.2*180)/60/3)| round (0) }}
+            {% endif %}
+            
+      heating_day_today_timer1:
+        friendly_name: Enable heater today timer1
+        entity_id: sensor.date_time
+        value_template:  >
+          {% set today_name = (now().strftime('%A')) | lower %}
+          {% set entity_id = 'input_boolean.heater1_'+ today_name %}
+          {{ is_state(entity_id, 'on') }}
+      heating_day_today_timer2:
+        friendly_name: Enable heater today timer2
+        entity_id: sensor.date_time
+        value_template:  >
+          {% set today_name = (now().strftime('%A')) | lower %}
+          {% set entity_id = 'input_boolean.heater2_'+ today_name %}
+          {{ is_state(entity_id, 'on') }}
+
+homeassistant:
+  customize:
+    switch.immersion:
+      icon: mdi:water
