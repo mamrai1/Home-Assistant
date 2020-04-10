@@ -1,0 +1,405 @@
+#####################################################################
+### Scripts to control pool light color selection
+#####################################################################
+script:
+  #####################################################################
+  ### Pool Light - Solid Blue; Channel 5
+  pool_blue:
+    sequence:
+
+  ## turn on the light
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+
+  ## wait before initiating the sequence
+    - delay:
+        seconds: 7
+
+  ## initiate sequence - pause briefly between cycles
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 1 - Color white
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 2 - color red
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 3 - green
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 4 - blue
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  #####################################################################
+  ### Pool Light - Solid Green; Channel 4
+  pool_green:
+    sequence:
+
+  ## turn on the light
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+
+  ## wait before initiating the sequence
+    - delay:
+        seconds: 7
+
+  ## initiate sequence - pause briefly between cycles
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 1 - Color white
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 2 - color red
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 3 - green
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+
+
+  #####################################################################
+  ### Pool Light - Solid Red; Channel 3
+  pool_red:
+    sequence:
+
+  ## turn on the light
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+
+  ## wait before initiating the sequence
+    - delay:
+        seconds: 7
+
+  ## initiate sequence - pause briefly between cycles
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 1 - Color white
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 2 - color red
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  #####################################################################
+  ### Pool Light - Solid White; Channel 2
+  pool_white:
+    sequence:
+
+  ## turn on the light
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+
+  ## wait before initiating the sequence
+    - delay:
+        seconds: 7
+
+  ## initiate sequence - pause briefly between cycles
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 1 - Color white
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+  #####################################################################
+  ### Pool Light - Solid Magenta; Channel 7
+  pool_violet:
+    sequence:
+  ## turn on the light
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+
+  ## wait before initiating the sequence
+    - delay:
+        seconds: 7
+
+  ## initiate sequence - pause briefly between cycles
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 1 - Color white
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 2 - color red
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 3 - green
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 4 - blue
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+        
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 5 - yellow
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 6 - cyan
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 7 - magenta
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+  #####################################################################
+  ### Pool Light - Solid yellow; Channel 5
+  pool_yellow:
+    sequence:
+  ## turn on the light
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+
+  ## wait before initiating the sequence
+    - delay:
+        seconds: 7
+
+  ## initiate sequence - pause briefly between cycles
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 1 - Color white
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 2 - color red
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 3 - green
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 4 - blue
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 5 - yellow
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+
+  #####################################################################
+  ### Pool Light - Solid cyan; Channel 6
+  pool_cyan:
+    sequence:
+  ## turn on the light
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+
+  ## wait before initiating the sequence
+    - delay:
+        seconds: 7
+
+  ## initiate sequence - pause briefly between cycles
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 1 - Color white
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 2 - color red
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 3 - green
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 4 - blue
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 5 - yellow
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 6 - cyan
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8

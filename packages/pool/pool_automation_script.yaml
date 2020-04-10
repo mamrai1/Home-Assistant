@@ -1,0 +1,361 @@
+#####################################################################
+### Pool Light Controls
+#####################################################################
+automation:
+### Reset the Pool Light selection when switched off
+  - alias: Pool Light Menu Reset
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: switch.pool_light
+        to: 'off'
+        for:
+          seconds: 7
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.pool_color
+          option: Select an option...
+
+### Pool Color Selection
+  - alias: Pool Color
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: input_select.pool_color
+        
+    condition:
+      - condition: state
+        entity_id: input_boolean.pool_master_switch
+        state: 'on'
+      - condition: template
+        value_template: "{{ not is_state('input_select.pool_color', 'Select an option...') }}"
+
+    action:
+      ##  turn off light for 7sec
+      - service: switch.turn_off
+        entity_id: switch.pool_light
+      - delay:
+          seconds: 7
+        
+      - service: script.turn_on
+        data_template:
+          entity_id: >-
+            {% if is_state('input_select.pool_color', 'Blue') %}
+              script.pool_blue
+            {% elif is_state('input_select.pool_color', 'Green') %}
+              script.pool_green
+            {% elif is_state('input_select.pool_color', 'Red') %}
+              script.pool_red
+            {% elif is_state('input_select.pool_color', 'White') %}
+              script.pool_white
+            {% elif is_state('input_select.pool_color', 'Magenta') %}
+              script.pool_violet
+            {% elif is_state('input_select.pool_color', 'Yellow') %}
+              script.pool_yellow
+            {% elif is_state('input_select.pool_color', 'Cyan') %}
+              script.pool_cyan
+            {% elif is_state('input_select.pool_color', 'Smooth') %}
+              script.pool_smooth
+            {% elif is_state('input_select.pool_color', 'RGB') %}
+              script.pool_rgb
+            {% elif is_state('input_select.pool_color', 'GRB') %}
+              script.pool_brg
+            {% elif is_state('input_select.pool_color', 'Party') %}
+              script.pool_party
+            {% endif %}
+
+#####################################################################
+### Set next run time when schedule 2 enabled or time changed
+#####################################################################
+  - alias: Set pool 2 schedule run time
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id:
+          - input_boolean.pool_timer2
+        to: 'on'
+      - platform: state
+        entity_id:
+          - input_datetime.start_pool2_date   #date
+          - input_datetime.start_pool2   #time
+      - platform: state
+        entity_id:
+          - input_select.pool2_schedule_days
+    action:
+      - service: input_datetime.set_datetime
+        data_template:
+          entity_id:
+            - input_datetime.pool2_schedule_next_run
+          date: >
+            {% set time = states('input_datetime.start_pool2') %}
+            {% if now().strftime('%H:%M') < time %}
+              {{ as_timestamp(now()) | timestamp_custom("%Y-%m-%d") }}
+            {% else %}
+              {{ (as_timestamp(now()) + 24 * 3600 ) | timestamp_custom("%Y-%m-%d") }}
+            {% endif %}
+          time: >
+            {{ states('input_datetime.start_pool2') }}
+
+#####################################################################
+### Update next run time after schedule 2 has ran
+#####################################################################
+  - alias: update pool 2 schedule after running
+    trigger:
+    action:
+      - service: input_datetime.set_datetime
+        data_template:
+          entity_id:
+            - input_datetime.pool2_schedule_next_run
+          date: >
+            {% if states('input_select.pool2_schedule_days') == 'Daily' %}
+              {{ (as_timestamp(now() ) + 24 * 3600 ) | timestamp_custom("%Y-%m-%d") }}
+            {% elif states('input_select.pool2_schedule_days') == 'Every 2 days' %}
+              {{ (as_timestamp(now() ) + 48 * 3600 ) | timestamp_custom("%Y-%m-%d") }}
+            {% elif states('input_select.pool2_schedule_days') == 'Every 3 days' %}
+              {{ (as_timestamp(now() ) + 72 * 3600 ) | timestamp_custom("%Y-%m-%d") }}
+            {% elif states('input_select.pool2_schedule_days') == 'Every 4 days' %}
+              {{ (as_timestamp(now() ) + 96 * 3600 ) | timestamp_custom("%Y-%m-%d") }}
+            {% else %}  
+              {{ (as_timestamp(now() ) + 120 * 3600 ) | timestamp_custom("%Y-%m-%d") }}
+            {% endif %}
+          time: >
+            {{ states('input_datetime.start_pool2') }}
+
+#############################
+# Master control switch
+#############################
+  - alias: Pool Control - Master Control Switch
+    trigger:
+      - platform: state
+        entity_id: input_boolean.pool_master_switch
+        to: 'off'
+      - event: start
+        platform: homeassistant
+    action:
+      #=== turn all off
+      - service: input_boolean.turn_off
+        data:
+          entity_id: 
+            - input_boolean.pool_pump
+            - input_boolean.pool_timer1_running
+            - input_boolean.pool_timer2_running
+            - input_boolean.pool_timermanual_running
+      - service: switch.turn_off
+        data:
+          entity_id:
+            - switch.pool_pump
+            - switch.pool_light
+            - switch.uv_light
+            - switch.ph_control
+      - service: script.turn_off
+        entity_id: script.pool_run_sequence
+#############################
+# Pool start manual timer cycle
+#############################
+  - alias: pool pump start
+    trigger:
+      - platform: state
+        entity_id: switch.pool_pump
+        from: 'off'
+        to: 'on'
+    condition:
+      - condition: state
+        entity_id: input_boolean.pool_master_switch
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.pool_pump
+        state: 'off'
+      - condition: state
+        entity_id: input_boolean.pool_timermanual
+        state: 'on'        
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: 
+            - input_boolean.pool_timermanual_running
+            - input_boolean.pool_pump
+      - service: timer.start
+        data_template:
+          duration: '{{ states.input_number.run_pool_pump_now.state | int }}:00:00'
+          entity_id: timer.pool
+      - service: script.turn_on
+        entity_id: script.pool_run_sequence
+
+#############################
+# Pool schedule 1
+#############################        
+  - alias: pool schedule 1
+    trigger:
+      - platform: template
+        value_template: >-
+          {{ states('sensor.time') == (state_attr('input_datetime.start_pool1', 'timestamp') | int | timestamp_custom('%H:%M', false)) }}
+    condition:
+      - condition: state
+        entity_id: input_boolean.pool_timer1
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.pool_master_switch
+        state: 'on'
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: 
+            - input_boolean.pool_timer1_running
+            - input_boolean.pool_pump
+      - service: timer.start
+        data_template:
+          duration: '{{ states.input_number.run_pool_pump1.state | int }}:00:00'
+          entity_id: timer.pool
+      - service: script.turn_on
+        entity_id: script.pool_run_sequence      
+        
+#############################
+# Pool schedule 2
+#############################        
+  - alias: pool schedule 2
+    trigger:
+      - platform: template
+        value_template: >-
+          {{states('sensor.date_time') == (state_attr('input_datetime.pool2_schedule_next_run', 'timestamp') | int | timestamp_custom('%Y-%m-%d, %H:%M', true)) }}
+    condition:
+      - condition: state
+        entity_id: input_boolean.pool_timer2
+        state: 'on'
+      - condition: state
+        entity_id: input_boolean.pool_master_switch
+        state: 'on'
+    action:
+      - service: input_boolean.turn_on
+        data:
+          entity_id: 
+            - input_boolean.pool_timer2_running
+            - input_boolean.pool_pump
+      - service: timer.start
+        data_template:
+          duration: '{{ states.input_number.run_pool_pump2.state | int }}:00:00'
+          entity_id: timer.pool
+      - service: script.turn_on
+        entity_id: script.pool_run_sequence        
+#############################
+# pool pump stop
+#############################
+  - alias: pool pump stop
+    trigger:
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.pool
+      - platform: state
+        entity_id: switch.pool_pump
+        from: 'on'
+        to: 'off'
+    action:
+      #=== turn all off
+      - service: switch.turn_off
+        data:
+          entity_id:
+            - switch.pool_pump
+            - switch.pool_light
+            - switch.uv_light
+            - switch.ph_control 
+      - service: input_boolean.turn_off
+        data:
+          entity_id: 
+            - input_boolean.pool_pump
+            - input_boolean.pool_timer1_running
+            - input_boolean.pool_timer2_running
+            - input_boolean.pool_timermanual_running
+      - service: timer.finish
+        entity_id: timer.pool
+      - service: script.turn_off
+        entity_id: script.pool_run_sequence  
+      - service: mqtt.publish
+        data:
+          payload: 0
+          topic: poolcontrol/cmnd/pulsetime1
+
+#############################
+# pool light timer
+#############################
+  - alias: pool light timer
+    trigger:
+      - platform: state
+        entity_id: switch.pool_light
+        from: 'off'
+        to: 'on'
+        for: '00:00:30'
+    action:
+      - service: timer.start
+        data_template:
+          duration: '00:{{ states.input_number.pool_lights_timer.state | int }}:00'
+          entity_id: timer.pool_light
+      - service: mqtt.publish
+        data_template:
+          payload: |
+            {% set duration = states('input_number.pool_lights_timer')  | float %}
+            {% set payload = 100 + (duration * 60) + 60 %}
+              {{ payload | int }}
+          topic: poolcontrol/cmnd/pulsetime2
+
+#############################
+# pool light auto off
+#############################
+  - alias: pool light auto off
+    trigger:
+      - platform: event
+        event_type: timer.finished
+        event_data:
+          entity_id: timer.pool_light
+      - platform: state
+        entity_id: switch.pool_light
+        from: 'on'
+        to: 'off'
+        for: '00:00:30'
+    action:
+      #=== turn all off
+      - service: switch.turn_off
+        entity_id: switch.pool_light
+      - service: timer.cancel
+        entity_id: timer.pool_light
+      - service: mqtt.publish
+        data:
+          payload: 0
+          topic: poolcontrol/cmnd/pulsetime2
+
+
+script:
+#############################
+# pool pump run 
+#############################
+  pool_run_sequence:
+    sequence:
+      - service: mqtt.publish
+        data_template:
+          payload: >-
+            {% if is_state('input_boolean.pool_timer1_running','on') %}
+              {% set duration = states('input_number.run_pool_pump1')  | float %}
+              {% set payload = 100 + (duration * 3600) + 60 %}
+            {% elif is_state('input_boolean.pool_timer2_running','on') %}
+              {% set duration = states('input_number.run_pool_pump2')  | float %}
+              {% set payload = 100 + (duration * 3600) + 60 %}
+            {% elif is_state('input_boolean.pool_timermanual_running','on') %}
+              {% set duration = states('input_number.run_pool_pump_now')  | float %}
+              {% set payload = 100 + (duration * 3600) + 60 %}
+            {% else %}
+              {% set duration = 0 %}
+              {% set payload = 0 %}
+            {% endif %}
+              {{ payload | int }}
+          topic: poolcontrol/cmnd/pulsetime1
+      - service: switch.turn_on
+        entity_id: switch.pool_pump
+      - delay: '00:03:00'
+      - service: switch.turn_on
+        entity_id: switch.uv_light
+      - delay: '00:01:00'
+      - service: switch.turn_on
+        entity_id: switch.ph_control
+
+
+

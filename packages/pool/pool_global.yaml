@@ -1,1 +1,170 @@
 
+#sensors
+sensor:
+  - platform: template
+    sensors:
+      pool2_schedule_next_run:
+        friendly_name: "Next scheduled run time"
+        value_template: >
+          {% if is_state('input_boolean.pool_timer2', 'on') %}
+            {{ (as_timestamp(states.input_datetime.pool2_schedule_next_run.state)) | timestamp_custom("%a %d %h at %H:%M") }}
+          {% else %}
+            None
+          {% endif %}
+
+      pool_running:
+        friendly_name: "Pool Pump Status"
+        value_template: >
+          {% if is_state('timer.pool','idle') and is_state('switch.pool_pump', 'on') %}
+            Manual
+          {% elif is_state('timer.pool','active') and is_state('switch.pool_pump', 'on') %}
+            Auto
+          {% else %}
+            Off
+          {% endif %}     
+        icon_template: >
+          {% if is_state('switch.pool_pump', 'on') %}
+            mdi:run
+          {% else %}
+            mdi:human-handsdown
+          {% endif %} 
+          
+      pool_timer_running:
+        friendly_name: "Timer Running"
+        value_template: >
+          {% if is_state('input_boolean.pool_timer1_running','on') %}
+            Timer 1
+          {% elif is_state('input_boolean.pool_timer2_running','on') %}
+            Timer 2
+          {% elif is_state('input_boolean.pool_timermanual_running','on') %}
+            Manual Timer
+          {% else %}
+            None
+          {% endif %}     
+        icon_template: >
+          {% if is_state('input_boolean.pool_pump', 'on') %}
+            mdi:run
+          {% else %}
+            mdi:human-handsdown
+          {% endif %} 
+
+#timer        
+timer:
+  pool:
+    name: Pump off in
+  pool_light:
+    name: lights off in
+# input date_time    
+input_datetime:
+  start_pool1:
+    name: Start Pump at
+    has_time: true
+    has_date: false
+  start_pool2:
+    name: Start Pump at
+    has_time: true
+    has_date: false
+  start_pool2_date:
+    name: Start Pump on
+    has_time: false
+    has_date: true
+  pool2_schedule_next_run:
+    name: Next schedule run
+    has_time: true
+    has_date: true
+    
+    
+input_boolean:
+  pool_master_switch:
+    name: Master Control
+    icon: mdi:power
+  pool_pump:
+    name: Pool Pump
+    icon: mdi:swim
+  pool_timer1:
+    name: Pool pump timer 1
+    icon: mdi:clock-outline
+  pool_timer2:
+    name: Pool pump timer 2
+    icon: mdi:clock-outline
+  pool_timermanual:
+    name: Use manual timer
+    icon: mdi:clock-outline
+  pool_timer1_running:
+  pool_timer2_running:
+  pool_timermanual_running:
+  pool_notify:
+    name: Pool notify
+    icon: mdi:comment-text
+
+input_number: 
+  run_pool_pump1:
+    name: Run for
+    min: 1
+    max: 8
+    step: 1
+    unit_of_measurement: 'h'
+    icon: mdi:clock-start
+  run_pool_pump2:
+    name: Run for
+    min: 1
+    max: 8
+    step: 1
+    unit_of_measurement: 'h'
+    icon: mdi:clock-start
+  run_pool_pump_now:
+    name: Run for
+    min: 1
+    max: 12
+    step: 1
+    unit_of_measurement: 'h'
+    icon: mdi:clock-start
+  pool_lights_timer:
+    name: ON for
+    min: 30
+    max: 180
+    step: 30
+    unit_of_measurement: 'm'
+    icon: mdi:clock-start
+#    mode: box
+
+
+input_select:
+  pool2_schedule_days:
+    name: Program 2 running days
+    options:
+      - 'Daily'
+      - 'Every 2 days'
+      - 'Every 3 days'
+      - 'Every 4 days'
+      - 'Every 5 days'
+    icon: mdi:calendar
+
+  pool_color:
+    name: Pool Color
+    icon: mdi:palette
+    initial: "Select an option..."
+    options:
+      - "Select an option..."
+      - "White"
+      - "Red"
+      - "Green"
+      - "Blue"
+      - "Yellow"
+      - "Cyan"
+      - "Magenta"
+      - "Smooth"
+      - "RGB"
+      - "GRB" 
+      - "Party"
+
+homeassistant:
+  customize:
+    switch.pool_light:
+      icon: mdi:lightbulb-on
+    automation.turn_on_pool_lights_at_sunset:
+      icon: mdi:weather-night
+    switch.pool_pump:
+      icon: mdi:swim
+    switch.ph_control:
+      icon: mdi:scale-balance

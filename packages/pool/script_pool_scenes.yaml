@@ -1,0 +1,333 @@
+#####################################################################
+### Scripts to control pool light scene selection
+#####################################################################
+script:
+  #####################################################################
+  ### Pool Light - smooth Mode; Channel 1
+  pool_smooth:
+    sequence:
+    
+    
+  ## turn on the light
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+
+
+  #####################################################################
+  ### Pool Light - RGB Mode; Channel 2
+  pool_rgb:
+    sequence:
+
+  ## turn on the light
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+
+  ## wait before initiating the sequence
+    - delay:
+        seconds: 7
+
+  ## initiate sequence - pause briefly between cycles
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 1 - Color white
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 2 - color red
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 3 - green
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 4 - blue
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+        
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 5 - yellow
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 6 - cyan
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 7 - magenta
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+        
+  ## 8 - rgb Mode
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+  #####################################################################
+  ### Pool Light - BRG Mode; Channel 2
+  pool_brg:
+    sequence:
+
+  ## turn on the light
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+
+  ## wait before initiating the sequence
+    - delay:
+        seconds: 7
+
+  ## initiate sequence - pause briefly between cycles
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 1 - Color white
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 2 - color red
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 3 - green
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 4 - blue
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+        
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 5 - yellow
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 6 - cyan
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 7 - magenta
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+        
+  ## 8 - rgb Mode
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+      
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+  #####################################################################
+  ### Pool Light - arty Mode; Channel 2
+  pool_party:
+    sequence:
+
+  ## turn on the light
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+
+  ## wait before initiating the sequence
+    - delay:
+        seconds: 7
+
+  ## initiate sequence - pause briefly between cycles
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 1 - Color white
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 2 - color red
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 3 - green
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 4 - blue
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+        
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 5 - yellow
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 6 - cyan
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+  ## 7 - magenta
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+        
+  ## 8 - rgb Mode
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+  ## 9 - brg Mode
+    - service: switch.turn_on
+      entity_id: switch.pool_light
+    - service: switch.turn_off
+      entity_id: switch.pool_light
+    - delay:
+        seconds: .8
+    - service: switch.turn_on
+      entity_id: switch.pool_light
