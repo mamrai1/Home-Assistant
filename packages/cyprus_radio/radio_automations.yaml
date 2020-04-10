@@ -1,0 +1,129 @@
+automation:
+#############################
+# Radio
+#############################
+  - alias: Radio
+    trigger:
+      - platform: state
+        entity_id: input_select.radio_station
+      - platform: state
+        entity_id: input_select.radio_speakers
+    action:
+      - service: media_player.play_media
+        data_template:
+          entity_id: >
+            {% if is_state('input_select.radio_speakers', 'Kitchen')%}
+              media_player.ground_floor_speaker
+            {% elif is_state('input_select.radio_speakers','Living room') %}
+              media_player.chromecast
+            {% elif is_state('input_select.radio_speakers','Everywhere') %}
+              media_player.speaker_group
+            {% endif %}
+          media_content_id: >
+            {% if is_state('input_select.radio_station', 'KISS FM 89.0') %}
+              https://onlineradiobox.com/json/cy/kiss/play?platform=web
+            {% elif is_state('input_select.radio_station', 'MIX FM 102.3') %}
+              http://live3.istoikona.com:8127/;stream
+            {% elif is_state('input_select.radio_station', 'MIX Greek') %}
+              http://live3.istoikona.com:8644/;stream
+            {% elif is_state('input_select.radio_station', 'KANALI6 106.0') %}
+              http://live3.istoikona.net:8372/stream/2/Title1=Kanali
+            {% elif is_state('input_select.radio_station', 'Ant1') %}
+              https://r1.cloudskep.com/radio2/ant1fm/icecast.audio
+            {% elif is_state('input_select.radio_station', 'Klik') %}
+              http://eco.onestreaming.com:8310/;
+            {% elif is_state('input_select.radio_station', 'Zenith') %} 
+              https://onlineradiobox.com/json/cy/zenith/play?platform=web
+            {% elif is_state('input_select.radio_station', 'Astra') %}  
+              http://radio.dialogos.com.cy:8000/stream
+            {% elif is_state('input_select.radio_station', 'CyBC 1') %}       
+              https://r1.cloudskep.com/cybcr/cybc1/icecast.audio
+            {% elif is_state('input_select.radio_station', 'Proto') %}       
+              http://eco.onestreaming.com:8191/;
+            {% elif is_state('input_select.radio_station', 'Super') %}       
+              http://eco.onestreaming.com:8175/;
+            {% elif is_state('input_select.radio_station', 'Diesi') %} 
+              https://r1.cloudskep.com/radio/diesi/icecast.audio
+            {% elif is_state('input_select.radio_station', 'Dance') %} 
+              https://onlineradiobox.com/json/cy/dance/play?platform=web
+            {% elif is_state('input_select.radio_station', 'Sfera') %}
+              https://onlineradiobox.com/json/cy/sfera1022/play?platform=web
+            {% elif is_state('input_select.radio_station', 'Choice') %}  
+              https://onlineradiobox.com/json/cy/choice1043/play?platform=web
+            {% elif is_state('input_select.radio_station', 'Supersport') %}  
+              https://onlineradiobox.com/json/cy/supersport/play?platform=web
+            {% endif %}
+          media_content_type: music
+      - service: media_player.volume_set
+        data_template:
+          entity_id: >-
+            {% if is_state('input_select.radio_speakers', 'Kitchen')%}
+              media_player.ground_floor_speaker
+            {% elif is_state('input_select.radio_speakers','Living room') %}
+              media_player.chromecast
+            {% elif is_state('input_select.radio_speakers','Everywhere') %}
+              media_player.speaker_group
+            {% endif %}
+          volume_level: >-
+            {{states.input_number.volume_radio.state}}
+
+#############################
+# Radio Reset
+#############################
+  - alias: radio reset
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: automation.radio
+        to: 'off'
+    action:
+      - service: input_select.select_option
+        data:
+          entity_id: input_select.radio_station
+          option: 'Select an option...'
+      - service: media_player.turn_off
+        data_template:
+          entity_id: >-
+            {% if is_state('input_select.radio_speakers', 'Kitchen')%}
+              media_player.ground_floor_speaker
+            {% elif is_state('input_select.radio_speakers','Living room') %}
+              media_player.chromecast
+            {% elif is_state('input_select.radio_speakers','Everywhere') %}
+              media_player.speaker_group
+            {% endif %}          
+            
+
+#############################
+# Set radio volume
+#############################
+  - alias: Set radio volume
+    initial_state: 'on'
+    trigger:
+      - platform: state
+        entity_id: input_number.volume_radio
+    action:
+      - service: media_player.volume_set
+        data_template:
+          entity_id: >-
+            {% if is_state('input_select.radio_speakers', 'Kitchen')%}
+              media_player.ground_floor_speaker
+            {% elif is_state('input_select.radio_speakers','Living room') %}
+              media_player.chromecast
+            {% elif is_state('input_select.radio_speakers','Everywhere') %}
+              media_player.speaker_group
+            {% endif %} 
+          volume_level: '{{  states.input_number.volume_radio.state  }}'
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            

@@ -1,1 +1,30 @@
-
+input_select:
+  radio_station:
+    name: 'Select Radio Station:'
+    icon: mdi:radio-fm
+    options:
+      - "Select an option..."
+      - KISS FM 89.0
+      - MIX FM 102.3
+      - MIX Greek
+      - KANALI6 106.0
+      - Ant1
+      - Sfera
+      - Klik
+      - Astra
+      - CyBC 1
+      - Proto
+      - Super
+      - Supersport
+      - Diesi
+      - Zenith
+      - Dance
+      - Choice
+      
+  radio_speakers:
+    name: 'Select speakers:'
+    icon: mdi:speaker
+    options:
+      - Kitchen
+      - Living room
+      - Everywhere
