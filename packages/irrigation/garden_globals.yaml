@@ -1,1 +1,283 @@
+input_text:
+  cycle1_current_zone:
+    name: Cycle 1 current zone
+  cycle2_current_zone:
+    name: Cycle 2 current zone
 
+input_select:
+  cycle1_watering_days:
+    name: Program 1 watering days
+    options:
+      - 'Daily'
+      - 'Every 2 days'
+      - 'Every 3 days'
+      - 'Every 4 days'
+      - 'Every 5 days'
+      - 'By weekdays'
+    icon: mdi:calendar
+  cycle2_watering_days:
+    name: Program 2 watering days
+    options:
+      - 'Daily'
+      - 'Every 2 days'
+      - 'Every 3 days'
+      - 'Every 4 days'
+      - 'Every 5 days'
+      - 'By weekdays'      
+    icon: mdi:calendar
+
+input_number:
+  cycle1_zone1_duration:
+    name: Zone 1 duration
+    min: 0
+    max: 15
+    step: 1
+    icon: mdi:camera-timer
+  cycle1_zone2_duration:
+    name: Zone 2 duration
+    min: 0
+    max: 15
+    step: 1
+    icon: mdi:camera-timer
+  cycle1_zone3_duration:
+    name: Zone 3 duration
+    min: 0
+    max: 15
+    step: 1
+    icon: mdi:camera-timer
+  cycle2_zone1_duration:
+    name: Zone 1 duration
+    min: 0
+    max: 15
+    step: 1
+    icon: mdi:camera-timer
+  cycle2_zone2_duration:
+    name: Zone 2 duration
+    min: 0
+    max: 15
+    step: 1
+    icon: mdi:camera-timer  
+  cycle2_zone3_duration:
+    name: Zone 3 duration
+    min: 0
+    max: 15
+    step: 1
+    icon: mdi:camera-timer
+
+input_boolean:
+  cycle1_weekdays:
+    name: Weekday mode
+    icon: mdi:checkbox-marked-outline
+  cycle1_monday:
+    name: Mon
+  cycle1_tuesday:
+   name: Tue
+  cycle1_wednesday:
+    name: Wed
+  cycle1_thursday:
+    name: Thu
+  cycle1_friday:
+    name: Fri
+  cycle1_saturday:
+    name: Sat
+  cycle1_sunday:
+    name: Sun
+  cycle1_deselect_all_days:
+    name: Clear
+  cycle1_select_all_days:
+    name: All
+  cycle2_weekdays:
+    name: Weekday mode
+    icon: mdi:checkbox-marked-outline
+  cycle2_monday:
+    name: Mon
+  cycle2_tuesday:
+   name: Tue
+  cycle2_wednesday:
+    name: Wed
+  cycle2_thursday:
+    name: Thu
+  cycle2_friday:
+    name: Fri
+  cycle2_saturday:
+    name: Sat
+  cycle2_sunday:
+    name: Sun
+  cycle2_deselect_all_days:
+    name: Clear
+  cycle2_select_all_days:
+    name: All 
+  irrigation_notify:
+    name: Irrigation Notifications
+    icon: mdi:comment-text
+  irrigation_master_control_switch:
+    name: Master Control Switch
+    icon: mdi:power
+  cycle1_enable:
+    name: Enable schedule
+    icon: mdi:pipe
+  cycle2_enable:
+    name: Enable schedule
+    icon: mdi:pipe
+  cycle1_manual_run:
+    name: Run program 1 cycle now
+    icon: mdi:arrow-right-drop-circle
+  cycle2_manual_run:
+    name: Run program 2 cycle now
+    icon: mdi:arrow-right-drop-circle
+  cycle1_running:
+    name: Cycle 1 running
+    icon: mdi:pipe
+  cycle2_running:
+    name: Cycle 2 running
+    icon: mdi:pipe
+
+input_datetime:
+  cycle1_next_run_time:
+    name: Cycle 1
+    has_date: true
+    has_time: true
+  cycle2_next_run_time:
+    name: Cycle 2
+    has_date: true
+    has_time: true
+  last_irrigated_time:
+    has_date: true
+    has_time: true
+  cycle1_schedule_time:
+    has_date: false
+    has_time: true
+  cycle2_schedule_time:
+    has_date: false
+    has_time: true
+
+timer:
+  cycle1_zone_duration:
+    name: Time remaining
+  cycle2_zone_duration:
+    name: Time remaining
+
+sensor:
+  - platform: template
+    sensors:
+      cycle1_next_run_time:
+        friendly_name: "Next scheduled run time"
+        icon_template: mdi:clock-start
+        value_template: >
+          {% if is_state('input_boolean.cycle1_enable', 'on') and is_state('input_boolean.cycle1_weekdays', 'off') %}
+            {{ (as_timestamp(states.input_datetime.cycle1_next_run_time.state)) | timestamp_custom("%a %d %h at %H:%M") }}
+          {% else %}
+            on selected day(s)
+          {% endif %}
+      cycle2_next_run_time:
+        friendly_name: "Next scheduled run time"
+        icon_template: mdi:clock-start
+        value_template: >
+          {% if is_state('input_boolean.cycle2_enable', 'on') and is_state('input_boolean.cycle2_weekdays', 'off') %}
+            {{ (as_timestamp(states.input_datetime.cycle2_next_run_time.state)) | timestamp_custom("%a %d %h at %H:%M") }}
+          {% else %}
+            on selected day(s)
+          {% endif %}
+      cycle1_running:
+        friendly_name: "Cycle 1"
+        value_template: >
+          {% if is_state('input_boolean.cycle1_running', 'on') %}
+            Running
+          {% else %}
+            Not running
+          {% endif %}     
+        icon_template: >
+          {% if is_state('input_boolean.cycle1_running', 'on') %}
+            mdi:run
+          {% else %}
+            mdi:human-handsdown
+          {% endif %}     
+      cycle2_running:
+        friendly_name: "Cycle 2"
+        value_template: >
+          {% if is_state('input_boolean.cycle2_running', 'on') %}
+            Running
+          {% else %}
+            Not running
+          {% endif %}     
+        icon_template: >
+          {% if is_state('input_boolean.cycle2_running', 'on') %}
+            mdi:run
+          {% else %}
+            mdi:human-handsdown
+          {% endif %}     
+      cycle1_zone_being_watered:
+        friendly_name: "Zone being watered"
+        icon_template: mdi:square-inc
+        value_template: "{{ states('input_text.cycle1_current_zone') }}" 
+      cycle2_zone_being_watered:
+        friendly_name: "Zone being watered"
+        icon_template: mdi:square-inc
+        value_template: "{{ states('input_text.cycle2_current_zone') }}" 
+      last_irrigated_time:
+        friendly_name: "Last irrigation cycle ended"
+        icon_template: mdi:update
+        value_template: >
+          {{ (as_timestamp(states.input_datetime.last_irrigated_time.state)) | timestamp_custom("%a %d %h at %H:%M") }}
+      zone1_time_today:
+        friendly_name: Zone 1 total watering time today
+        icon_template: mdi:water
+        value_template: >
+          {% set duration = states('sensor.zone1_time') | float %}
+          {{ (duration * 60) | round(1) }}
+        unit_of_measurement: mins
+      zone2_time_today:
+        friendly_name: Zone 1 total watering time today
+        icon_template: mdi:water
+        value_template: >
+          {% set duration = states('sensor.zone1_time') | float %}
+          {{ (duration * 60) | round(1) }}
+        unit_of_measurement: mins
+      zone3_time_today:
+        friendly_name: Zone 1 total watering time today
+        icon_template: mdi:water
+        value_template: >
+          {% set duration = states('sensor.zone1_time') | float %}
+          {{ (duration * 60) | round(1) }}
+        unit_of_measurement: mins
+      current_day:
+        friendly_name: Today is
+        entity_id: sensor.date_time
+        value_template: >
+          {{ (now().strftime('%A')) }}
+      watering_day_today_cycle1:
+        friendly_name: Watering today
+        entity_id: sensor.date_time
+        value_template:  >
+          {% set today_name = (now().strftime('%A')) | lower %}
+          {% set entity_id = 'input_boolean.cycle1_'+ today_name %}
+          {{ is_state(entity_id, 'on') }}
+      watering_day_today_cycle2:
+        friendly_name: Watering today
+        entity_id: sensor.date_time
+        value_template:  >
+          {% set today_name = (now().strftime('%A')) | lower %}
+          {% set entity_id = 'input_boolean.cycle2_'+ today_name %}
+          {{ is_state(entity_id, 'on') }}          
+
+  - platform: history_stats
+    name: zone1_time
+    entity_id: switch.irrigation_zone1_valve
+    state: 'on'
+    type: time
+    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+    end: '{{ now() }}'
+  - platform: history_stats
+    name: zone2_time
+    entity_id: switch.irrigation_zone2_valve
+    state: 'on'
+    type: time
+    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+    end: '{{ now() }}'
+  - platform: history_stats
+    name: zone3_time
+    entity_id: switch.irrigation_zone3_valve
+    state: 'on'
+    type: time
+    start: '{{ now().replace(hour=0).replace(minute=0).replace(second=0) }}'
+    end: '{{ now() }}'

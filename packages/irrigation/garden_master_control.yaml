@@ -1,0 +1,26 @@
+automation:
+  - alias: Irrigation - Master Control Switch
+    trigger:
+      - platform: state
+        entity_id: input_boolean.irrigation_master_control_switch
+        to: 'off'
+      - event: start
+        platform: homeassistant
+    action:
+      - service: input_boolean.turn_off
+        data:
+          entity_id: 
+            - input_boolean.cycle1_manual_run
+            - input_boolean.cycle2_manual_run
+      - service: switch.turn_off
+        data:
+          entity_id:
+            - switch.irrigation_pump
+            - switch.irrigation_zone1_valve
+            - switch.irrigation_zone2_valve
+            - switch.irrigation_zone3_valve
+      - service: script.turn_off
+        data:
+          entity_id:
+            - script.irrigate_a_zone
+            - script.run_a_cycle
