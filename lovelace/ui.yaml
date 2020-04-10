@@ -1,1 +1,1536 @@
+custom_header:
+  compact_mode: true
+  exceptions: []
+title: Home
+views:
+  - badges:
+      - entity: sensor.ssl_certificate_expiry
+      - entity: person.andreas
+      - entity: person.maria
+      - entity: person.panayiotis
+      - entity: person.joanna
+    cards:
+      - cards:
+          - aspect_ratio: 0%
+            camera_image: camera.driveway
+            camera_view: live
+            entities:
+              - entity: binary_sensor.garage_cam_motion
+              - entity: binary_sensor.garage_cam_line_crossing
+              - entity: cover.garage_door
+                tap_action:
+                  action: toggle
+              - entity: light.shelly_shsw_1_98f4abf29e87
+                tap_action:
+                  action: toggle
+              - entity: cover.gates
+                tap_action:
+                  action: toggle
+            entity: camera.driveway
+            image: 'image: ''http://192.168.1.13/ISAPI/Streaming/channels/101/picture'''
+            tap_action:
+              action: more-info
+            type: picture-glance
+          - entities:
+              - entity: cover.garage_door
+                tap_action:
+                  action: toggle
+              - entity: cover.gates
+                tap_action:
+                  action: toggle
+              - entity: input_boolean.camera_garage_notify
+                hold_action:
+                  action: toggle
+                tap_action:
+                  action: more-info
+            type: glance
+        type: vertical-stack
+      - cards:
+          - aspect_ratio: 0%
+            camera_image: camera.front
+            camera_view: live
+            entities:
+              - entity: binary_sensor.front_cam_motion
+              - entity: binary_sensor.front_cam_line_crossing
+              - entity: binary_sensor.openclose_6
+              - entity: binary_sensor.openclose_7
+            entity: camera.front
+            hold_action:
+              action: none
+            image: '''http://192.168.1.13/ISAPI/Streaming/channels/101/picture'''
+            tap_action:
+              action: more-info
+            type: picture-glance
+          - cards:
+              - entities:
+                  - entity: binary_sensor.openclose_6
+                  - entity: binary_sensor.openclose_7
+                  - entity: input_boolean.camera_front_notify
+                    hold_action:
+                      action: toggle
+                    tap_action:
+                      action: more-info
+                type: glance
+            type: horizontal-stack
+        type: vertical-stack
+      - type: alarm-panel
+        states:
+          - arm_home
+          - arm_away
+        entity: alarm_control_panel.home_alarm
+    icon: 'mdi:security'
+    path: default_view
+    title: SECURITY
+  - badges: []
+    cards:
+      - cards:
+          - cards:
+              - entity: light.shelly_shdm_1_f3694f
+                hold_action:
+                  action: more-info
+                icon_height: 50px
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+                type: button
+              - entity: light.bathroom_light
+                hold_action:
+                  action: more-info
+                icon_height: 50px
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+                type: button
+            type: horizontal-stack
+          - card:
+              entities:
+                - entity: light.shelly_shdm_1_f3694f
+                  full_row: true
+                  name: Master
+                  step: 10
+                  toggle: false
+                  type: 'custom:slider-entity-row'
+              type: entities
+            conditions:
+              - entity: light.shelly_shdm_1_f3694f
+                state: 'on'
+            type: conditional
+          - entity: light.shelly_shdm_1_f36c79
+            hold_action:
+              action: more-info
+            icon_height: 50px
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: toggle
+            type: button
+          - card:
+              entities:
+                - entity: light.shelly_shdm_1_f36c79
+                  full_row: true
+                  name: Master
+                  step: 10
+                  toggle: false
+                  type: 'custom:slider-entity-row'
+              type: entities
+            conditions:
+              - entity: light.shelly_shdm_1_f36c79
+                state: 'on'
+            type: conditional
+          - entity: light.shelly_shdm_1_f3e8d4
+            hold_action:
+              action: more-info
+            icon_height: 50px
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: toggle
+            type: button
+          - card:
+              entities:
+                - entity: light.shelly_shdm_1_f3e8d4
+                  full_row: true
+                  name: Master
+                  step: 10
+                  toggle: false
+                  type: 'custom:slider-entity-row'
+              type: entities
+            conditions:
+              - entity: light.shelly_shdm_1_f3e8d4
+                state: 'on'
+            type: conditional
+          - entities:
+              - entity: binary_sensor.motion_sensor_panayiotis
+            show_header_toggle: false
+            type: entities
+        title: Bedroom lights
+        type: vertical-stack
+      - cards:
+          - entity: light.shelly_shdm_1_f3cf05
+            hold_action:
+              action: more-info
+            icon_height: 50px
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: toggle
+            type: button
+          - card:
+              entities:
+                - entity: light.shelly_shdm_1_f3cf05
+                  full_row: true
+                  name: Master
+                  step: 10
+                  toggle: false
+                  type: 'custom:slider-entity-row'
+              type: entities
+            conditions:
+              - entity: light.shelly_shdm_1_f3cf05
+                state: 'on'
+            type: conditional
+          - cards:
+              - entity: light.shelly_shsw_1_98f4abf29e87
+                hold_action:
+                  action: more-info
+                icon_height: 50px
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+                type: button
+              - entity: light.shelly_shsw_1_8caab505dfec
+                hold_action:
+                  action: more-info
+                icon_height: 50px
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+                type: button
+            type: horizontal-stack
+          - entities:
+              - entity: binary_sensor.motion_sensor_ioanna
+            type: entities
+          - entities:
+              - entity: sensor.panayioti_s_lights_consumption
+              - entity: sensor.ioanna_s_lights_consumption
+              - entity: sensor.master_bedroom_lights_consumption
+              - entity: sensor.veranda_lights_consumption
+            type: glance
+        title: Lights
+        type: vertical-stack
+    icon: 'mdi:lightbulb-on'
+    path: lights
+    title: Lights
+  - badges: []
+    cards:
+      - cards:
+          - entity: climate.main_thermostat
+            type: 'custom:simple-thermostat'
+        type: vertical-stack
+      - cards:
+          - entity: climate.sec_thermostat
+            type: 'custom:simple-thermostat'
+        type: vertical-stack
+      - cards:
+          - cards:
+              - entity: sensor.living_room_ds18b20_temperature
+                graph: line
+                type: sensor
+              - entity: sensor.ground_thermostat_temp
+                graph: line
+                type: sensor
+            type: horizontal-stack
+          - cards:
+              - entity: sensor.floor_thermostat_temp
+                graph: line
+                type: sensor
+              - entity: sensor.immersion_ds18b20_temperature
+                graph: line
+                type: sensor
+            type: horizontal-stack
+          - entities:
+              - entity: automation.thermostats_to_idle_midnight
+            title: Automations
+            type: entities
+        type: vertical-stack
+      - entity: sensor.oil_quantity
+        max: 700
+        min: 0
+        name: Oil quantity
+        severity:
+          green: 200
+          red: 0
+          yellow: 100
+        theme: default
+        type: gauge
+        unit: l
+      - entities:
+          - entity: sensor.ch_oil_ds18b20_temperature
+          - entity: sensor.ch_water_temp_ds18b20_temperature
+          - entity: sensor.calibrated_oil_distance
+          - entity: sensor.oil_quantity
+        show_header_toggle: false
+        title: Temp's & More
+        type: entities
+      - cards:
+          - cards:
+              - entity: sensor.irrigation_zone1_valve_ds18b20_temperature
+                graph: line
+                type: sensor
+              - entity: sensor.garage_ds18b20_temperature
+                graph: line
+                type: sensor
+            type: horizontal-stack
+          - entity: weather.home
+            type: weather-forecast
+        type: vertical-stack
+    icon: 'mdi:radiator'
+    path: heating
+    title: HEATING
+  - badges: []
+    cards:
+      - cards:
+          - entities:
+              - entity: sensor.pressureswitch_ds18b20_temperature
+              - entity: sensor.time
+              - entity: sensor.time_to_temp
+              - entity: sensor.ch_water_temp_ds18b20_temperature
+              - entity: sensor.oil_quantity
+            type: entities
+        title: Hot Water Status
+        type: vertical-stack
+      - cards:
+          - entity: input_boolean.boost
+            hold_action:
+              action: more-info
+            icon_height: 50px
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: toggle
+            type: button
+          - entities:
+              - entity: timer.boost
+              - entity: input_select.boost
+              - entity: input_number.heater_boost
+              - entity: automation.max_temp_hot_water
+              - entity: input_number.heater_temperature
+            show_header_toggle: false
+            type: entities
+        title: Hot Water Boost Control
+        type: vertical-stack
+      - cards:
+          - entity: input_boolean.heater_timer1
+            hold_action:
+              action: toggle
+            icon_height: 50px
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: more-info
+            type: button
+          - card:
+              cards:
+                - entities:
+                    - entity: input_datetime.start_heater1
+                    - entity: input_number.heater_boost_schedule1
+                    - entity: input_boolean.heater1_weekdays
+                  show_header_toggle: false
+                  type: entities
+                - card:
+                    cards:
+                      - cards:
+                          - entity: input_boolean.heater1_monday
+                            hold_action:
+                              action: more-info
+                            icon_height: 30px
+                            show_icon: true
+                            show_name: true
+                            tap_action:
+                              action: toggle
+                            type: button
+                          - entity: input_boolean.heater1_tuesday
+                            hold_action:
+                              action: more-info
+                            icon_height: 30px
+                            show_icon: true
+                            show_name: true
+                            tap_action:
+                              action: toggle
+                            type: button
+                          - entity: input_boolean.heater1_wednesday
+                            hold_action:
+                              action: more-info
+                            icon_height: 30px
+                            show_icon: true
+                            show_name: true
+                            tap_action:
+                              action: toggle
+                            type: button
+                          - entity: input_boolean.heater1_thursday
+                            hold_action:
+                              action: more-info
+                            icon_height: 30px
+                            show_icon: true
+                            show_name: true
+                            tap_action:
+                              action: toggle
+                            type: button
+                        type: horizontal-stack
+                      - cards:
+                          - entity: input_boolean.heater1_friday
+                            hold_action:
+                              action: more-info
+                            icon_height: 30px
+                            show_icon: true
+                            show_name: true
+                            tap_action:
+                              action: toggle
+                            type: button
+                          - entity: input_boolean.heater1_saturday
+                            hold_action:
+                              action: more-info
+                            icon_height: 30px
+                            show_icon: true
+                            show_name: true
+                            tap_action:
+                              action: toggle
+                            type: button
+                          - entity: input_boolean.heater1_sunday
+                            hold_action:
+                              action: more-info
+                            icon_height: 30px
+                            show_icon: true
+                            show_name: true
+                            tap_action:
+                              action: toggle
+                            type: button
+                          - cards:
+                              - entity: input_boolean.heater1_deselect_all_days
+                                hold_action:
+                                  action: more-info
+                                icon_height: 15px
+                                show_icon: false
+                                show_name: true
+                                tap_action:
+                                  action: toggle
+                                type: button
+                              - entity: input_boolean.heater1_select_all_days
+                                hold_action:
+                                  action: more-info
+                                icon_height: 15px
+                                show_icon: false
+                                show_name: true
+                                tap_action:
+                                  action: toggle
+                                type: button
+                            type: vertical-stack
+                        type: horizontal-stack
+                    type: vertical-stack
+                  conditions:
+                    - entity: input_boolean.heater1_weekdays
+                      state: 'on'
+                  type: conditional
+              type: vertical-stack
+            conditions:
+              - entity: input_boolean.heater_timer1
+                state: 'on'
+            type: conditional
+          - entity: input_boolean.heater_timer2
+            hold_action:
+              action: toggle
+            icon_height: 50px
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: more-info
+            type: button
+          - card:
+              cards:
+                - entities:
+                    - entity: input_datetime.start_heater2
+                    - entity: input_number.heater_boost_schedule2
+                    - entity: input_boolean.heater2_weekdays
+                  show_header_toggle: false
+                  type: entities
+                - card:
+                    cards:
+                      - cards:
+                          - entity: input_boolean.heater2_monday
+                            hold_action:
+                              action: more-info
+                            icon_height: 30px
+                            show_icon: true
+                            show_name: true
+                            tap_action:
+                              action: toggle
+                            type: button
+                          - entity: input_boolean.heater2_tuesday
+                            hold_action:
+                              action: more-info
+                            icon_height: 30px
+                            show_icon: true
+                            show_name: true
+                            tap_action:
+                              action: toggle
+                            type: button
+                          - entity: input_boolean.heater2_wednesday
+                            hold_action:
+                              action: more-info
+                            icon_height: 30px
+                            show_icon: true
+                            show_name: true
+                            tap_action:
+                              action: toggle
+                            type: button
+                          - entity: input_boolean.heater2_thursday
+                            hold_action:
+                              action: more-info
+                            icon_height: 30px
+                            show_icon: true
+                            show_name: true
+                            tap_action:
+                              action: toggle
+                            type: button
+                        type: horizontal-stack
+                      - cards:
+                          - entity: input_boolean.heater2_friday
+                            hold_action:
+                              action: more-info
+                            icon_height: 30px
+                            show_icon: true
+                            show_name: true
+                            tap_action:
+                              action: toggle
+                            type: button
+                          - entity: input_boolean.heater2_saturday
+                            hold_action:
+                              action: more-info
+                            icon_height: 30px
+                            show_icon: true
+                            show_name: true
+                            tap_action:
+                              action: toggle
+                            type: button
+                          - entity: input_boolean.heater2_sunday
+                            hold_action:
+                              action: more-info
+                            icon_height: 30px
+                            show_icon: true
+                            show_name: true
+                            tap_action:
+                              action: toggle
+                            type: button
+                          - cards:
+                              - entity: input_boolean.heater2_deselect_all_days
+                                hold_action:
+                                  action: more-info
+                                icon_height: 15px
+                                show_icon: false
+                                show_name: true
+                                tap_action:
+                                  action: toggle
+                                type: button
+                              - entity: input_boolean.heater2_select_all_days
+                                hold_action:
+                                  action: more-info
+                                icon_height: 15px
+                                show_icon: false
+                                show_name: true
+                                tap_action:
+                                  action: toggle
+                                type: button
+                            type: vertical-stack
+                        type: horizontal-stack
+                    type: vertical-stack
+                  conditions:
+                    - entity: input_boolean.heater2_weekdays
+                      state: 'on'
+                  type: conditional
+              type: vertical-stack
+            conditions:
+              - entity: input_boolean.heater_timer2
+                state: 'on'
+            type: conditional
+        title: Hot Water Schedules
+        type: vertical-stack
+      - cards:
+          - cards:
+              - entity: switch.immersion
+                hold_action:
+                  action: more-info
+                icon_height: 50px
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+                type: button
+              - entity: switch.ch_hotwater
+                hold_action:
+                  action: more-info
+                icon_height: 50px
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+                type: button
+            title: Switches
+            type: horizontal-stack
+          - entities:
+              - entity: automation.hotwater_switches_boost_sync
+            show_header_toggle: false
+            type: entities
+          - cards:
+              - entity: switch.pressureswitch
+                hold_action:
+                  action: more-info
+                icon_height: 40px
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+                type: button
+              - entity: input_boolean.heater_notify
+                hold_action:
+                  action: more-info
+                icon_height: 40px
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+                type: button
+            type: horizontal-stack
+        type: vertical-stack
+      - detail: 2
+        entity: sensor.pressureswitch_ds18b20_temperature
+        graph: line
+        hours_to_show: 48
+        name: Hot Water
+        type: sensor
+      - content: >+
+          1. Physical switches -Immersion and central heating-  are hardcoded to
+          remain ON for maximum 1.5h (using  pulsetime1 5500) if they are not in
+          sync with Boost selection. 
 
+          2. Rule is used on  Sonoff TH16 measuring hot water temperature to
+          turn off switches when temperature reaches 70°C :
+
+          (rule 1 on Tele-DS18B20#Temperature>70 do backlog websend
+          [192.168.1.41,username:password] power1 0; websend
+          [192.168.1.42,username:password] power1 0  endon)
+
+        title: 'Notice:'
+        type: markdown
+    icon: 'mdi:water-pump'
+    path: water
+    title: HOT WATER
+  - badges: []
+    cards:
+      - cards:
+          - entity: input_boolean.pool_master_switch
+            hold_action:
+              action: more-info
+            icon_height: 40px
+            name: Master Control Switch
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: none
+            type: button
+          - cards:
+              - entity: input_boolean.pool_notify
+                hold_action:
+                  action: more-info
+                icon_height: 40px
+                name: Pool notifications
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+                type: button
+              - entity: switch.pool_pump
+                hold_action:
+                  action: more-info
+                icon_height: 40px
+                name: Pool pump
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+                type: button
+            type: horizontal-stack
+          - entities:
+              - entity: input_boolean.pool_timermanual
+              - entity: input_number.run_pool_pump_now
+              - entity: sensor.pool_running
+              - entity: sensor.pool_timer_running
+              - entity: timer.pool
+              - entity: sensor.date_time
+            type: entities
+          - card:
+              cards:
+                - cards:
+                    - cards:
+                        - entity: switch.uv_light
+                          hold_action:
+                            action: more-info
+                          icon_height: 40px
+                          show_icon: true
+                          show_name: true
+                          tap_action:
+                            action: toggle
+                          type: button
+                        - entity: switch.ph_control
+                          hold_action:
+                            action: more-info
+                          icon_height: 40px
+                          show_icon: true
+                          show_name: true
+                          tap_action:
+                            action: toggle
+                          type: button
+                      type: horizontal-stack
+                  type: horizontal-stack
+              type: vertical-stack
+            conditions:
+              - entity: switch.pool_pump
+                state: 'on'
+            type: conditional
+          - cards:
+              - entity: switch.pool_light
+                hold_action:
+                  action: more-info
+                icon_height: 40px
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+                type: button
+              - entity: automation.turn_on_pool_lights_at_sunset
+                hold_action:
+                  action: more-info
+                icon_height: 40px
+                name: Turn On at Dusk
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: toggle
+                type: button
+            type: horizontal-stack
+          - entities:
+              - entity: input_number.pool_lights_timer
+            show_header_toggle: false
+            type: entities
+          - card:
+              entities:
+                - entity: input_select.pool_color
+                - entity: timer.pool_light
+              show_header_toggle: false
+              type: entities
+            conditions:
+              - entity: switch.pool_light
+                state: 'on'
+            type: conditional
+        title: Pool Control
+        type: vertical-stack
+      - cards:
+          - entity: input_boolean.pool_timer1
+            hold_action:
+              action: toggle
+            icon_height: 40px
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: more-info
+            type: button
+          - card:
+              entities:
+                - entity: input_datetime.start_pool1
+                - entity: input_number.run_pool_pump1
+              show_header_toggle: false
+              state_color: true
+              type: entities
+            conditions:
+              - entity: input_boolean.pool_timer1
+                state: 'on'
+            type: conditional
+          - entity: input_boolean.pool_timer2
+            hold_action:
+              action: toggle
+            icon_height: 40px
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: more-info
+            type: button
+          - card:
+              entities:
+                - entity: input_select.pool2_schedule_days
+                - entity: input_datetime.start_pool2
+                - entity: input_number.run_pool_pump2
+                - entity: sensor.pool2_schedule_next_run
+              show_header_toggle: false
+              state_color: true
+              type: entities
+            conditions:
+              - entity: input_boolean.pool_timer2
+                state: 'on'
+            type: conditional
+        title: Pool Pump Timers
+        type: vertical-stack
+      - cards:
+          - cards:
+              - entity: sensor.pool_pump_ds18b20_temperature
+                graph: line
+                type: sensor
+            type: horizontal-stack
+          - cards:
+              - entity: sensor.out_humidity
+                graph: line
+                type: sensor
+              - entity: sensor.irrigation_zone1_valve_ds18b20_temperature
+                graph: line
+                type: sensor
+            type: horizontal-stack
+        title: Temps & Humidity
+        type: vertical-stack
+    icon: 'mdi:pool'
+    path: pool
+    title: Pool
+  - badges: []
+    cards:
+      - cards:
+          - entity: input_boolean.cycle1_manual_run
+            hold_action:
+              action: more-info
+            icon_height: 40px
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: toggle
+            type: button
+          - entities:
+              - entity: input_number.cycle1_zone1_duration
+              - entity: input_number.cycle1_zone2_duration
+              - entity: input_number.cycle1_zone3_duration
+              - entity: sensor.cycle1_running
+              - entity: sensor.cycle1_zone_being_watered
+              - entity: timer.cycle1_zone_duration
+              - entity: input_boolean.cycle1_enable
+            show_header_toggle: false
+            type: entities
+          - card:
+              entities:
+                - entity: input_select.cycle1_watering_days
+                - entity: input_datetime.cycle1_schedule_time
+                - entity: sensor.cycle1_next_run_time
+              show_header_toggle: false
+              type: entities
+            conditions:
+              - entity: input_boolean.cycle1_enable
+                state: 'on'
+            type: conditional
+          - card:
+              cards:
+                - cards:
+                    - entity: input_boolean.cycle1_monday
+                      hold_action:
+                        action: more-info
+                      icon_height: 30px
+                      show_icon: true
+                      show_name: true
+                      tap_action:
+                        action: toggle
+                      type: button
+                    - entity: input_boolean.cycle1_tuesday
+                      hold_action:
+                        action: more-info
+                      icon_height: 30px
+                      show_icon: true
+                      show_name: true
+                      tap_action:
+                        action: toggle
+                      type: button
+                    - entity: input_boolean.cycle1_wednesday
+                      hold_action:
+                        action: more-info
+                      icon_height: 30px
+                      show_icon: true
+                      show_name: true
+                      tap_action:
+                        action: toggle
+                      type: button
+                    - entity: input_boolean.cycle1_thursday
+                      hold_action:
+                        action: more-info
+                      icon_height: 30px
+                      show_icon: true
+                      show_name: true
+                      tap_action:
+                        action: toggle
+                      type: button
+                  type: horizontal-stack
+                - cards:
+                    - entity: input_boolean.cycle1_friday
+                      hold_action:
+                        action: more-info
+                      icon_height: 30px
+                      show_icon: true
+                      show_name: true
+                      tap_action:
+                        action: toggle
+                      type: button
+                    - entity: input_boolean.cycle1_saturday
+                      hold_action:
+                        action: more-info
+                      icon_height: 30px
+                      show_icon: true
+                      show_name: true
+                      tap_action:
+                        action: toggle
+                      type: button
+                    - entity: input_boolean.cycle1_sunday
+                      hold_action:
+                        action: more-info
+                      icon_height: 30px
+                      show_icon: true
+                      show_name: true
+                      tap_action:
+                        action: toggle
+                      type: button
+                    - cards:
+                        - entity: input_boolean.cycle1_deselect_all_days
+                          hold_action:
+                            action: more-info
+                          icon_height: 15px
+                          show_icon: false
+                          show_name: true
+                          tap_action:
+                            action: toggle
+                          type: button
+                        - entity: input_boolean.cycle1_select_all_days
+                          hold_action:
+                            action: more-info
+                          icon_height: 15px
+                          show_icon: false
+                          show_name: true
+                          tap_action:
+                            action: toggle
+                          type: button
+                      type: vertical-stack
+                  type: horizontal-stack
+              type: vertical-stack
+            conditions:
+              - entity: input_boolean.cycle1_weekdays
+                state: 'on'
+              - entity: input_boolean.cycle1_enable
+                state: 'on'
+            type: conditional
+        title: Program  Cycle 1
+        type: vertical-stack
+      - cards:
+          - entity: input_boolean.cycle2_manual_run
+            hold_action:
+              action: more-info
+            icon_height: 40px
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: toggle
+            type: button
+          - entities:
+              - entity: input_number.cycle2_zone1_duration
+              - entity: input_number.cycle2_zone2_duration
+              - entity: input_number.cycle2_zone3_duration
+              - entity: sensor.cycle2_running
+              - entity: sensor.cycle2_zone_being_watered
+              - entity: timer.cycle2_zone_duration
+              - entity: input_boolean.cycle2_enable
+            show_header_toggle: false
+            type: entities
+          - card:
+              entities:
+                - entity: input_select.cycle2_watering_days
+                - entity: input_datetime.cycle2_schedule_time
+                - entity: sensor.cycle2_next_run_time
+              show_header_toggle: false
+              type: entities
+            conditions:
+              - entity: input_boolean.cycle2_enable
+                state: 'on'
+            type: conditional
+          - card:
+              cards:
+                - cards:
+                    - entity: input_boolean.cycle2_monday
+                      hold_action:
+                        action: more-info
+                      icon_height: 30px
+                      show_icon: true
+                      show_name: true
+                      tap_action:
+                        action: toggle
+                      type: button
+                    - entity: input_boolean.cycle2_tuesday
+                      hold_action:
+                        action: more-info
+                      icon_height: 30px
+                      show_icon: true
+                      show_name: true
+                      tap_action:
+                        action: toggle
+                      type: button
+                    - entity: input_boolean.cycle2_wednesday
+                      hold_action:
+                        action: more-info
+                      icon_height: 30px
+                      show_icon: true
+                      show_name: true
+                      tap_action:
+                        action: toggle
+                      type: button
+                    - entity: input_boolean.cycle2_thursday
+                      hold_action:
+                        action: more-info
+                      icon_height: 30px
+                      show_icon: true
+                      show_name: true
+                      tap_action:
+                        action: toggle
+                      type: button
+                  type: horizontal-stack
+                - cards:
+                    - entity: input_boolean.cycle2_friday
+                      hold_action:
+                        action: more-info
+                      icon_height: 30px
+                      show_icon: true
+                      show_name: true
+                      tap_action:
+                        action: toggle
+                      type: button
+                    - entity: input_boolean.cycle2_saturday
+                      hold_action:
+                        action: more-info
+                      icon_height: 30px
+                      show_icon: true
+                      show_name: true
+                      tap_action:
+                        action: toggle
+                      type: button
+                    - entity: input_boolean.cycle2_sunday
+                      hold_action:
+                        action: more-info
+                      icon_height: 30px
+                      show_icon: true
+                      show_name: true
+                      tap_action:
+                        action: toggle
+                      type: button
+                    - cards:
+                        - entity: input_boolean.cycle2_deselect_all_days
+                          hold_action:
+                            action: more-info
+                          icon_height: 30px
+                          show_icon: false
+                          show_name: true
+                          tap_action:
+                            action: toggle
+                          type: button
+                        - entity: input_boolean.cycle2_select_all_days
+                          hold_action:
+                            action: more-info
+                          icon_height: 15px
+                          show_icon: false
+                          show_name: true
+                          tap_action:
+                            action: toggle
+                          type: button
+                      type: vertical-stack
+                  type: horizontal-stack
+              type: vertical-stack
+            conditions:
+              - entity: input_boolean.cycle2_weekdays
+                state: 'on'
+              - entity: input_boolean.cycle2_enable
+                state: 'on'
+            type: conditional
+        title: Program  Cycle 2
+        type: vertical-stack
+      - cards:
+          - entity: input_boolean.irrigation_master_control_switch
+            hold_action:
+              action: more-info
+            icon_height: 40px
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: none
+            type: button
+          - entity: input_boolean.irrigation_notify
+            hold_action:
+              action: more-info
+            icon_height: 40px
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: toggle
+            type: button
+          - cards:
+              - entity: switch.irrigation_pump
+                hold_action:
+                  action: more-info
+                icon_height: 40px
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: ''
+                type: button
+              - entity: switch.irrigation_zone1_valve
+                hold_action:
+                  action: more-info
+                icon_height: 40px
+                name: Zone 1
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: ''
+                type: button
+            type: horizontal-stack
+          - cards:
+              - entity: switch.irrigation_zone2_valve
+                hold_action:
+                  action: more-info
+                icon_height: 40px
+                name: Zone 2
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: ''
+                type: button
+              - entity: switch.irrigation_zone3_valve
+                hold_action:
+                  action: more-info
+                icon_height: 40px
+                name: Zone 3
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: ''
+                type: button
+            type: horizontal-stack
+          - cards:
+              - entity: input_boolean.cycle1_running
+                hold_action:
+                  action: more-info
+                icon_height: 40px
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: ''
+                type: button
+              - entity: input_boolean.cycle2_running
+                hold_action:
+                  action: more-info
+                icon_height: 40px
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: ''
+                type: button
+            type: horizontal-stack
+          - cards:
+              - entity: input_datetime.cycle1_next_run_time
+                hold_action:
+                  action: none
+                icon_height: 40px
+                name: Cycle 1 scheduled on
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: more-info
+                type: button
+              - entity: input_datetime.cycle2_next_run_time
+                hold_action:
+                  action: none
+                icon_height: 40px
+                name: Cycle 2 scheduled on
+                show_icon: true
+                show_name: true
+                tap_action:
+                  action: more-info
+                type: button
+            type: horizontal-stack
+          - entities:
+              - entity: sensor.date_time
+              - entity: sensor.current_day
+              - entity: sensor.last_irrigated_time
+            show_header_toggle: false
+            type: entities
+          - cards:
+              - entity: sensor.irrigation_zone1_valve_ds18b20_temperature
+                graph: line
+                type: sensor
+              - entity: sensor.out_humidity
+                graph: line
+                type: sensor
+            type: horizontal-stack
+        title: Controller Status
+        type: vertical-stack
+    garden_view: null
+    icon: 'mdi:flower'
+    name: Garden
+    panel: false
+    path: irrigation
+    title: Irrigation
+    view: 'yes'
+  - badges:
+      - entity: sensor.plex_hpnas
+      - entity: sensor.transmission_status
+    cards:
+      - cards:
+          - entity: media_player.sony_bravia_tv
+            type: media-control
+          - entity: media_player.living_room_tv_2
+            type: media-control
+          - entity: media_player.samsung_samsung_dtv_rcr
+            type: media-control
+        type: vertical-stack
+      - cards:
+          - entity: media_player.playstation_4
+            type: media-control
+          - entity: media_player.spotify_andreas
+            type: media-control
+        type: vertical-stack
+      - cards:
+          - entity: automation.radio
+            hold_action:
+              action: more-info
+            icon_height: 50px
+            show_icon: true
+            show_name: true
+            tap_action:
+              action: toggle
+            type: button
+          - card:
+              entities:
+                - entity: input_select.radio_station
+                - entity: input_select.radio_speakers
+                - entity: input_number.volume_radio
+              show_header_toggle: false
+              state_color: true
+              type: entities
+            conditions:
+              - entity: automation.radio
+                state: 'on'
+            type: conditional
+        type: vertical-stack
+      - entities:
+          - entity: media_player.ground_floor_speaker
+          - entity: media_player.chromecast
+          - entity: media_player.speaker_group
+        show_header_toggle: false
+        title: Speakers
+        type: entities
+    icon: 'mdi:movie-open'
+    path: media
+    title: MEDIA
+  - badges: []
+    cards:
+      - cards:
+          - cards:
+              - entity: sensor.energy_usage
+                max: 5000
+                min: 0
+                name: Power Cons
+                severity:
+                  green: 0
+                  red: 0
+                  yellow: 0
+                theme: default
+                type: gauge
+              - entity: sensor.modbus_sma_pv_power
+                max: 5000
+                min: 0
+                name: Power Production
+                severity:
+                  green: 0
+                  red: 3950
+                  yellow: 3800
+                theme: default
+                type: gauge
+            type: horizontal-stack
+          - cards:
+              - entities:
+                  - entity: sensor.daily_energy_consumption
+                    name: Daily Consumption
+                  - entity: sensor.daily_energy_production
+                    name: Daily Generation
+                show_icon: false
+                type: glance
+            type: horizontal-stack
+          - cards:
+              - entities:
+                  - entity: sensor.monthly_energy_consumption
+                    name: Monthly Consumption
+                  - entity: sensor.monthly_energy_production
+                    name: Monthly Generation
+                show_icon: false
+                type: glance
+            type: horizontal-stack
+          - cards:
+              - entities:
+                  - entity: sensor.yearly_energy_consumption
+                    name: Yearly Consumption
+                  - entity: sensor.yearly_energy_production
+                    name: Yearly Generation
+                show_icon: false
+                type: glance
+            type: horizontal-stack
+          - entity: sensor.daily_energy_production
+            graph: line
+            type: sensor
+        type: vertical-stack
+      - entities:
+          - entity: sensor.modbus_sma_pv_power
+          - entity: sensor.energy_usage
+        hours_to_show: 24
+        refresh_interval: 0
+        type: history-graph
+      - cards:
+          - entities:
+              - entity: sensor.modbus_inverter_status
+              - entity: sensor.pv_daily_yield
+              - entity: sensor.pv_total_production
+              - entity: sensor.modbus_grid_contactor
+            show_header_toggle: false
+            title: PV Inverter
+            type: entities
+          - card:
+              entities:
+                - entity: sensor.modbus_sma_pv_power
+                - entity: sensor.modbus_sma_pv_apparent_power
+                - entity: sensor.modbus_sma_pv_reactive_power
+                - entity: sensor.modbus_sma_temperature
+                - entity: sensor.modbus_grid_voltage
+                - entity: sensor.modbus_grid_frequency
+                - entity: sensor.insulation
+                - entity: sensor.modbus_sma_pv_residual
+              show_header_toggle: false
+              type: entities
+            conditions:
+              - entity: sensor.sma_grid
+                state: '51'
+            type: conditional
+        type: vertical-stack
+    icon: 'mdi:flash'
+    path: energy
+    title: ENERGY
+  - badges: []
+    cards:
+      - entities:
+          - entity: sensor.battery_level
+          - entity: sensor.battery_level_3
+          - entity: sensor.battery_state_3
+          - entity: sensor.battery_level_2
+          - entity: sensor.battery_state_2
+          - entity: sensor.gt_n5110_battery_level
+        show_header_toggle: false
+        title: Phones
+        type: entities
+      - entities:
+          - entity: sensor.motion_sensor_ioanna_battery
+          - entity: sensor.motion_sensor_panayiotis_battery_level
+          - entity: sensor.openclose_6_battery_level
+          - entity: sensor.openclose_7_battery_level
+          - entity: sensor.switch_3_battery_level
+        show_header_toggle: false
+        title: Zigbee
+        type: entities
+      - entities:
+          - entity: sensor.nut_ups_input_voltage
+          - entity: sensor.nut_ups_input_line_frequency
+          - entity: sensor.nut_ups_battery_charge
+          - entity: sensor.nut_ups_load
+          - entity: sensor.nut_ups_battery_runtime
+          - entity: sensor.nut_ups_current_apparent_power
+          - entity: sensor.nut_ups_nominal_power
+          - entity: sensor.nut_ups_battery_temperature
+          - entity: sensor.nut_ups_status
+          - entity: sensor.nut_ups_self_test_result
+        show_header_toggle: false
+        title: HP Ups
+        type: entities
+      - entities:
+          - sensor.hp_printer_printer
+          - sensor.hp_printer_scanner
+          - sensor.hp_printer_status
+          - binary_sensor.hp_printer_status
+          - sensor.hp_printer_toner_black
+          - sensor.hp_printer_toner_cyan
+          - sensor.hp_printer_toner_magenta
+          - sensor.hp_printer_toner_yellow
+        title: HP CM1415fn
+        type: entities
+    icon: 'mdi:battery-charging'
+    path: batteries
+    title: Batteries
+  - badges: []
+    cards:
+      - default_zoom: 14
+        entities:
+          - entity: person.andreas
+          - entity: person.joanna
+          - entity: person.maria
+          - entity: person.panayiotis
+        hours_to_show: 3
+        type: map
+    panel: true
+    path: map
+    title: MAP
+  - badges: []
+    cards:
+      - entities:
+          - entity: automation.hot_water_on_info
+          - entity: automation.hot_water_off_info
+          - entity: automation.oil_low
+        show_header_toggle: false
+        title: 'Hot Water Notifications '
+        type: entities
+      - entities:
+          - entity: automation.irrigation_started
+          - entity: automation.irrigation_finished
+          - entity: automation.irrigation_cycle_2_finished
+        show_header_toggle: false
+        title: Irrigation Notifications
+        type: entities
+      - entities:
+          - entity: automation.pool_pump_cycle_ended_notify
+          - entity: automation.pool_pump_start_notify
+        show_header_toggle: false
+        title: 'Pool Notifications '
+        type: entities
+      - entities:
+          - entity: automation.alarm_triggered
+          - entity: automation.trigger_alarm_while_armed_away
+          - entity: automation.trigger_alarm_while_armed_home
+          - entity: automation.line_crossing_front_cam
+          - entity: automation.line_crossing_driveway_cam
+        show_header_toggle: false
+        title: Alarm
+        type: entities
+      - entities:
+          - entity: automation.turn_the_light_on_when_motion_is_detected_panayiotis
+          - entity: automation.turn_off_light_no_motion_panayiotis
+          - entity: automation.turn_the_light_on_when_motion_is_detected_ioanna
+          - entity: automation.tun_off_lights_no_motion_ioanna
+          - entity: >-
+              automation.turn_on_the_lights_when_the_sun_is_set_and_motion_detected
+          - entity: automation.turn_off_garage_light_after_10_minutes
+          - entity: automation.smart_switch_turn_off_kids_lights
+          - entity: automation.smart_switch
+        title: Lights
+        type: entities
+      - entities:
+          - entity: automation.pv_system_dead_status
+          - entity: automation.pv_system_live_status
+          - entity: automation.power_state_sonoff_on_ha_start_up
+          - entity: automation.homekit_server_auto_start
+          - entity: automation.fromt_gate_is_open
+        title: General
+        type: entities
+    path: automations
+    title: Automations
+  - badges: []
+    cards:
+      - entities:
+          - entity: sensor.gates_status
+          - entity: sensor.garage_status
+          - entity: sensor.ch_water_temp_status
+          - entity: sensor.pressureswitch_status
+          - entity: sensor.bathroom_light_status
+          - entity: sensor.ch_hotwater_status
+          - entity: sensor.immersion_status
+          - entity: sensor.living_room_status
+          - entity: sensor.pool_pump_status
+          - entity: sensor.irrigation_zone1_valve_status
+          - entity: sensor.ch_oil_status
+          - entity: sensor.shelly_shdm_1_f36c79_rssi_2
+          - entity: sensor.shelly_shdm_1_f3cf05_rssi_2
+          - entity: sensor.shelly_shdm_1_f3694f_rssi_2
+          - entity: sensor.shelly_shdm_1_f3e8d4_rssi_2
+          - entity: sensor.shelly_shsw_1_98f4abf29e87_rssi_2
+          - entity: sensor.shelly_shsw_1_8caab505dfec_rssi_2
+        title: Wifi Signal
+        type: entities
+      - entities:
+          - entity: sensor.heater_energy_consumed
+          - entity: sensor.heater_power
+          - entity: sensor.monthly_heater
+          - entity: sensor.yearly_heater
+        type: entities
+      - entities:
+          - entity: sensor.transmission_active_torrents
+          - entity: sensor.transmission_completed_torrents
+          - entity: sensor.transmission_down_speed
+          - entity: sensor.transmission_up_speed
+        type: entities
+      - entities:
+          - entity: sensor.ch_water_temp_ds18b20_temperature
+          - entity: sensor.ch_oil_ds18b20_temperature
+          - entity: sensor.ch_oil_sr04_distance
+          - entity: sensor.calibrated_oil_distance
+          - entity: sensor.oil_quantity
+          - entity: sensor.out_humidity
+          - entity: sensor.irrigation_zone1_valve_ds18b20_temperature
+        type: entities
+      - entities:
+          - entity: sensor.calibrated_oil_distance
+          - entity: sensor.ch_oil_sr04_distance
+          - entity: sensor.ch_oil_ds18b20_temperature
+          - entity: sensor.ch_water_temp_ds18b20_temperature
+          - entity: sensor.pressureswitch_ds18b20_temperature
+          - entity: sensor.irrigation_zone1_valve_ds18b20_temperature
+          - entity: sensor.garage_ds18b20_temperature
+        hours_to_show: 24
+        refresh_interval: 0
+        type: history-graph
+      - entities:
+          - name: Plex
+            type: weblink
+            url: 'https://plex.mamra.duckdns.org/'
+          - type: divider
+          - name: CouchPotato
+            type: weblink
+            url: 'https://cp.mamra.duckdns.org/'
+          - type: divider
+          - name: Transmission
+            type: weblink
+            url: 'https://transmission.mamra.duckdns.org/'
+          - type: divider
+          - name: NextCloud
+            type: weblink
+            url: 'https://cloud.mamra.duckdns.org/'
+          - type: divider
+          - name: OpenMediaVault
+            type: weblink
+            url: 'https://omv.mamra.duckdns.org/'
+          - type: divider
+          - name: Asus Router
+            type: weblink
+            url: 'https://asus.mamra.duckdns.org/'
+          - type: divider
+        show_header_toggle: false
+        title: Weblinks
+        type: entities
+      - entities:
+          - entity: sensor.cyprus_coronavirus_confirmed
+          - entity: sensor.cyprus_coronavirus_current
+          - entity: sensor.cyprus_coronavirus_recovered
+          - entity: sensor.cyprus_coronavirus_deaths
+        type: entities
+    path: test
+    title: Test
