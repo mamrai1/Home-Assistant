@@ -63,3 +63,41 @@ climate:
       - "3" 
       - "4"  
     fan_mode_command_topic: "cmnd/tasmota_AD9FA1/HVACSetFanSpeed"
+    
+    WIDEVANE support for units supporting it (using input_select & automation):
+    
+    input_select:
+  living_ac_widevane:
+    name: WideVane
+    options:
+       -  "swing"
+       -  "LL"
+       -  "L"
+       -  "C"
+       -  "R"
+       -  "RR"   
+       -  "split"       
+    icon: mdi:target
+
+automation:
+- alias: "Set Living AC Widevane Selector"
+  trigger:
+    platform: mqtt
+    topic: "tele/tasmota_AD9FA1/HVACSETTINGS"
+  action:
+    service: input_select.select_option
+    target:
+      entity_id: input_select.living_ac_widevane
+    data:
+      option: "{{ trigger.payload_json.SwingH }}"
+  mode: restart
+- alias: "Set Living AC Widevane"
+  trigger:
+    platform: state
+    entity_id: input_select.living_ac_widevane
+  action:
+    service: mqtt.publish
+    data:
+      topic: "cmnd/tasmota_AD9FA1/HVACSetSwingH"
+      retain: false
+      payload: "{{ states('input_select.living_ac_widevane') }}"
