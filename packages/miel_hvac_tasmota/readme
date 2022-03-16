@@ -7,7 +7,7 @@ added in 'user_config_override.h'
 #define USE_MIEL_HVAC 
 #endif
 _______
-changed in platformio_override.ini
+for tasmota4M binary changed in platformio_override.ini
 board  = esp8266_4M2M
 
 _______
