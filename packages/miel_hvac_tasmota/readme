@@ -1,2 +1,15 @@
 tasmota v11.0.0
-compiled on gitpod
+compiled on gitpod:
+_______
+added in 'user_config_override.h'
+
+#ifndef USE_MIEL_HVAC 
+#define USE_MIEL_HVAC 
+#endif
+_______
+changed in platformio_override.ini
+board  = esp8266_4M2M
+
+_______
+
+
